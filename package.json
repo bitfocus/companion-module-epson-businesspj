@@ -1,11 +1,18 @@
 {
   "name": "epsonbusinesspj",
+  "shortname": "epsonpj",
   "version": "1.0.0",
   "description": "",
+  "keywords": [
+		"Projector",
+		"Epson"
+  ],
+  "manufacturer": "Epson",
+  "product": "Business Projectors",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Arthur Penner <arthur.penner@yahoo.de>",
   "license": "ISC"
 }
