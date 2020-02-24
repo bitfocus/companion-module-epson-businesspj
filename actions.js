@@ -66,25 +66,43 @@ module.exports = {
                 type: 'dropdown',
                 label: 'test pattern',
                 id: 'patternId',
+                default: '2002',
+                choices: [
+                  { id: '2002', label: 'Standard' },
+                  { id: '2003', label: 'Cross-hatching' },
+                  { id: '200D', label: 'Cross-hatching R' },
+                  { id: '200E', label: 'Cross-hatching G' },
+                  { id: '200F', label: 'Cross-hatching B' },
+                  { id: '2004', label: 'Color Bars V' },
+                  { id: '2010', label: 'Color Bars H' },
+                  { id: '2005', label: 'Grayscale' },
+                  { id: '2012', label: 'Gray Bars V' },
+                  { id: '2013', label: 'Gray Bars H' },
+                  { id: '200B', label: 'Checkerboard 1' },
+                  { id: '200C', label: 'Checkerboard 2' },
+                  { id: '2006', label: 'White' },
+                  { id: '2011', label: 'Black' },
+                  { id: '2014', label: 'Aspect Frame' },
+                ]
+              }
+            ]
+          },
+          'source': {
+            label: 'Source Select',
+            options: [
+              {
+                type: 'dropdown',
+                label: 'source',
+                id: 'sourceId',
                 default: '2001',
                 choices: [
-                  { id: '2001', label: 'Standard' },
-                  { id: '2002', label: 'Cross-hatching' },
-                  { id: '2003', label: 'Cross-hatching R' },
-                  { id: '2004', label: 'Cross-hatching G' },
-                  { id: '2005', label: 'Cross-hatching B' },
-                  { id: '2006', label: 'Color Bars V' },
-                  { id: '2007', label: 'Color Bars H' },
-                  { id: '2008', label: 'Grayscale' },
-                  { id: '2009', label: 'Gray Bars V' },
-                  { id: '2010', label: 'Gray Bars H' },
-                  { id: '2011', label: 'Checkerboard 1' },
-                  { id: '2012', label: 'Checkerboard 2' },
-                  { id: '2013', label: 'White' },
-                  { id: '2014', label: 'Black' },
-                  { id: '2015', label: '16:10 Aspect Frame' },
-                  { id: '2016', label: '16:9 Aspect Frame (TODO validate)' },
-                  { id: '2017', label: '4:3 Aspect Frame (TODO validate)' }
+                  { id: '30', label: 'HDMI' },
+                  { id: '80', label: 'HDBaseT' },
+                  { id: 'A0', label: 'DVI-D' },
+                  { id: '60', label: 'SDI' },
+                  { id: '10', label: 'VGA' },
+                  { id: 'B0', label: 'BNC' },
+                  { id: '53', label: 'Wireless' }
                 ]
               }
             ]
@@ -228,6 +246,39 @@ module.exports = {
               max: 100,
               required: true
             }]
+          },
+          'power': {
+            label: 'Power',
+            options: [
+              {
+                type: 'dropdown',
+                label: 'state',
+                id: 'powerAction',
+                default: 'ON',
+                choices: [
+                  { id: 'ON', label: 'Power On' },
+                  { id: 'OFF', label: 'Power Off' },
+                ]
+              }
+            ]
+          },
+          'fadeTime': {
+            label: 'Fade Time for A/V Mute',
+            options: [{
+              type: 'number',
+              label: 'fade in time (0-10s)',
+              id: 'fadeIn',
+              min: 0,
+              max: 10,
+              required: false
+            },{
+              type: 'number',
+              label: 'fade out time (0-10s)',
+              id: 'fadeOut',
+              min: 0,
+              max: 10,
+              required: false
+            }]
           }
         };
     }
@@ -290,6 +341,26 @@ module.exports = {
       case 'brightness':
         return "_OSD_IMLUMLEVEL=" + action.options[paramForAction[0]]
 
+      case 'power':
+        if (action.options[paramForAction[0]] == "ON"){
+          return "IMPWR=ON"
+        } else {
+          return "KEY=6C"
+        }
+
+      case 'fadeTime':
+        const fadeInTime = action.options[paramForAction[0]]*20
+        const fadeOutTime = action.options[paramForAction[1]]*20
+
+        if(fadeInTime){
+          return "FADEIN="+fadeInTime + (fadeOutTime? ("&FADEOUT=" + fadeOutTime): "")
+        } else if (fadeOutTime){
+          return "FADEOUT="+fadeOutTime
+        }
+
+      case 'source':
+        return "SOURCE=" + action.options[paramForAction[0]]
+        
       case 'testPattern':
         return "TESTPATTERN=01%" + action.options[paramForAction[0]]
       case 'hideTestPattern':
