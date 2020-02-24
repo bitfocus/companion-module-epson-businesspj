@@ -108,7 +108,7 @@ module.exports = {
             ]
           },
           'zoomAction': {
-            label: 'Perform a Lens Zoom Action',
+            label: 'Perform a Lens Zoom Action (not working yet)',
             options: [
               {
                 type: 'dropdown',
@@ -123,7 +123,7 @@ module.exports = {
             ]
           },
           'shiftAction': {
-            label: 'Perform a Lens Shift Action',
+            label: 'Perform a Lens Shift Action (not working yet)',
             options: [
               {
                 type: 'dropdown',
@@ -140,7 +140,7 @@ module.exports = {
             ]
           },
           'focusValue': {
-            label: 'Focus the Lens to a specific Value',
+            label: 'Focus the Lens to a specific Value (not working yet)',
             options: [
               {
                 type: 'number',
@@ -154,7 +154,7 @@ module.exports = {
             ]
           },
           'zoomValue': {
-            label: 'Zoom the Lens to a specific Value',
+            label: 'Zoom the Lens to a specific Value (not working yet)',
             options: [
               {
                 type: 'number',
@@ -168,7 +168,7 @@ module.exports = {
             ]
           },
           'shiftValue': {
-            label: 'Shift the Lens to a specific Value',
+            label: 'Shift the Lens to a specific Value (not working yet)',
             options: [
               {
                 type: 'number',
@@ -238,7 +238,6 @@ module.exports = {
   getAction(action) {
     var id = action.action
     var paramForAction = action.options?Object.keys(action.options):null
-    system.emit('log', 'Epson PJ', 'debug', 'Options: ' + JSON.stringify(paramForAction));
 
     switch (id) {
       case 'loadLensPosition':
