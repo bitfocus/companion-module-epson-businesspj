@@ -1,5 +1,5 @@
-## Epson Pro Projector
-This module will allow you to control Epson's Pro Projector line, specifically the following models:
+## Epson Business PJ
+This module will allow you to control Epson's Business/Pro Projector line, specifically the following models:
 * EB-L1755U
 
 ### Configuration
