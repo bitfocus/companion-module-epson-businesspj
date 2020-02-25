@@ -1,2 +1,2 @@
-# companion-module-epson-proprojector
+# companion-module-epson-businesspj
 See HELP.md and LICENSE
