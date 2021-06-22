@@ -14,5 +14,5 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Arthur Penner <arthur.penner@yahoo.de>",
-  "license": "ISC"
+  "license": "MIT"
 }
