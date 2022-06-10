@@ -14,5 +14,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Arthur Penner <arthur.penner@yahoo.de>",
-  "license": "MIT"
+  "license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bitfocus/companion-module-epson-businesspj.git"
+	},
+	"bugs": {
+		"url": "https://github.com/bitfocus/companion-module-epson-businesspj/issues"
+	},
+	"homepage": "https://github.com/bitfocus/companion-module-epson-businesspj#readme"
 }
