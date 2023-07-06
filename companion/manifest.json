@@ -1,0 +1,35 @@
+{
+	"id": "epson-businesspj",
+	"name": "epson-businesspj",
+	"shortname": "epsonpj",
+	"description": "",
+	"version": "0.0.0",
+	"license": "MIT",
+	"repository": "git+https://github.com/bitfocus/companion-module-epson-businesspj.git",
+	"bugs": "https://github.com/bitfocus/companion-module-epson-businesspj/issues",
+	"maintainers": [
+		{
+			"name": "Arthur Penner",
+			"email": "arthur.penner@yahoo.de"
+		},
+		{
+			"name": "Joseph Adams",
+			"email": "josephdadams@gmail.com"
+		}
+	],
+	"legacyIds": [],
+	"runtime": {
+		"type": "node18",
+		"api": "nodejs-ipc",
+		"apiVersion": "0.0.0",
+		"entrypoint": "../index.js"
+	},
+	"manufacturer": "Epson",
+	"products": [
+		"Business Projectors"
+	],
+	"keywords": [
+		"Projector",
+		"Epson"
+	]
+}

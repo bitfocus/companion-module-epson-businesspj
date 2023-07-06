@@ -1,26 +1,20 @@
 {
   "name": "epson-businesspj",
-  "shortname": "epsonpj",
-  "version": "1.0.0",
-  "description": "",
-  "keywords": [
-    "Projector",
-    "Epson"
-  ],
-  "manufacturer": "Epson",
-  "product": "Business Projectors",
+  "version": "2.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Arthur Penner <arthur.penner@yahoo.de>",
   "license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/bitfocus/companion-module-epson-businesspj.git"
-	},
-	"bugs": {
-		"url": "https://github.com/bitfocus/companion-module-epson-businesspj/issues"
-	},
-	"homepage": "https://github.com/bitfocus/companion-module-epson-businesspj#readme"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitfocus/companion-module-epson-businesspj.git"
+  },
+  "dependencies": {
+    "@companion-module/base": "~1.4.1",
+    "node-rest-client": "^3.1.1"
+  },
+  "devDependencies": {
+    "@companion-module/tools": "^1.3.2"
+  }
 }
