@@ -6,16 +6,17 @@ module.exports = {
 	initConnection: function () {
 		let self = this;
 
-		self.updateStatus(InstanceStatus.Ok);
+		self.updateStatus(InstanceStatus.Connecting);
 		
-		//self.getInformation();
-		//self.setupInterval();
+		self.getInformation();
+		self.stopInterval();
+		self.setupInterval();
 	},
 	
 	setupInterval: function() {
 		let self = this;
 	
-		self.stopInterval();
+		//self.stopInterval();
 	
 		if (self.config.polling == true) {
 			self.INTERVAL = setInterval(self.getInformation.bind(self), self.config.interval);
@@ -34,10 +35,13 @@ module.exports = {
 	},
 	
 	getInformation: async function () {
-		let self = this;
+				let self = this;
 
-		//send commands to request status about the projector
-
+				//send commands to request status about the projector
+				if (self.config.verbose) {
+					self.log('debug', 'Getting Status Information')
+				}
+				self.sendPostRequest('/cgi-bin/webconf', 'page=70') // get status information
 	},
 
 	sendCommand: function(path) {
@@ -62,9 +66,7 @@ module.exports = {
 				}
 			};
 
-			if (self.config.verbose) {
-				self.log('debug', 'Requesting: ' + url);
-			}
+			self.log('info', 'Requesting: ' + url);
 			
 			let client = new Client();
 		
@@ -74,8 +76,74 @@ module.exports = {
 				self.checkVariables();
 			})
 			.on('error', function(error) {
+				this.updateStatus(InstanceStatus.ConnectionFailure, error.message)
 				self.log('error', 'Error Sending Command ' + error.toString());
 			});
+		}
+	},
+	
+	sendPostRequest(path, formData) {
+		if (this.config.host !== '' && this.config.host !== undefined) {
+			const https = this.config.https;
+			const url = "http" + (https ? "s" : "") + "://" + this.config.host + path;
+
+			let args = {
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+					'Connection': 'keep-alive',
+					'Accept': '*/*',
+					'X-Requested-With': 'XMLHttpRequest',
+					'User-Agent': 'Companion-Epson-Module'
+				},
+				data: formData // formdata as string, e.g. 'page=70' for 'Status Information'
+			};
+			if (this.config.verbose) {
+				this.log('debug', `POSTing to: ${url}`);
+				this.log('debug', `Data: ${formData}`);
+			}
+			let client = new Client();
+
+			client.post(url, args, (data, response) => {
+				if (response.statusCode === 200) {
+					this.updateStatus(InstanceStatus.Ok)
+					if (this.config.verbose) {
+						this.log('debug', `Response received: ${data.toString()}`);
+					}
+					this.processResponse(data);
+				} else {
+					this.updateStatus(InstanceStatus.ConnectionFailure, error.message)
+					this.log('error', `Unexpected response: ${response.statusCode}`);
+				}
+			}).on('error', (error) => {
+				this.updateStatus(InstanceStatus.ConnectionFailure, error.message)
+				this.log('error', `Error Sending POST Request: ${error.toString()}`);
+				//this.updateStatus(InstanceStatus.Disconnected)
+				//this.stopInterval();
+			});
+		}
+	},
+
+	processResponse(data) {
+		try {
+			// parse response
+			const parsedData = JSON.parse(data.toString());
+
+			// extract `system`-Status
+			const systemStatus = parsedData.system;
+			
+			// log for debugging
+			this.log('info', `System Status: ${systemStatus}`);
+			
+			// set variables
+			this.setVariableValues({
+				system_status: systemStatus,
+			});
+			
+			// refresh feedbacks
+			this.checkFeedbacks();
+			
+		} catch (error) {
+			this.log('error', `Fehler beim Verarbeiten der Antwort: ${error.toString()}`);
 		}
 	}
 }
