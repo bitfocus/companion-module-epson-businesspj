@@ -24,7 +24,7 @@ module.exports = {
                 id: 'https',
                 default: false
             },
-			/*{
+			{
 				type: 'checkbox',
 				id: 'polling',
 				label: 'Enable Polling',
@@ -43,9 +43,9 @@ module.exports = {
 				id: 'interval',
 				label: 'Update Interval',
 				width: 3,
-				default: 1000,
+				default: 3000,
 				isVisible: (configValues) => configValues.polling == true,
-			},*/
+			},
 			{
 				type: 'static-text',
 				id: 'info2',
