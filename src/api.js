@@ -67,7 +67,7 @@ module.exports = {
 			};
 
 			if (self.config.verbose) {
-				self.log('info', 'Requesting: ' + url);
+				self.log('debug', 'Requesting: ' + url);
 			}
 			
 			let client = new Client();
