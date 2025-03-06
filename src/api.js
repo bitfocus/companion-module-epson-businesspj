@@ -87,7 +87,7 @@ module.exports = {
 	sendPostRequest(path, formData) {
 		let self = this;
 		
-		if (self.config.host !== '' && slef.config.host !== undefined) {
+		if (self.config.host !== '' && self.config.host !== undefined) {
 			const https = self.config.https;
 			const url = "http" + (https ? "s" : "") + "://" + self.config.host + path;
 
