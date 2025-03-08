@@ -23,7 +23,7 @@ class epsonBusinessPJInstance extends InstanceBase {
 			...api
 		})
 
-		//this.INTERVAL = null; //used to poll for updates
+		this.INTERVAL = null; //used to poll for updates
 	}
 
 	async destroy() {
