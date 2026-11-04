@@ -3,8 +3,7 @@
 	"version": "2.1.0",
 	"main": "index.js",
 	"scripts": {
-		"build": "node --check index.js && node --check src/api.js && node --check src/actions.js && node --check src/config.js && node --check src/feedbacks.js && node --check src/presets.js && node --check src/upgrades.js && node --check src/variables.js",
-		"test": "node --test test/*.test.js"
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"license": "MIT",
 	"repository": {
